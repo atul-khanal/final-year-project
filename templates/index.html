@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Upload Form -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 class="text-xl font-semibold mb-4">Upload CSV File for Analysis</h2>
+
+        <form hx-post="/upload" hx-encoding="multipart/form-data" hx-target="#results" x-data="{ state: 'idle' }"
+            @htmx:before-request="state = 'processing'" @htmx:after-request="state = 'processed'" class="space-y-4">
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Select Model Type</label>
+                <div class="flex space-x-4">
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="model_type" value="supervised" checked
+                            class="form-radio text-blue-600">
+                        <span class="ml-2">Supervised Learning</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="model_type" value="unsupervised" class="form-radio text-blue-600">
+                        <span class="ml-2">Unsupervised Learning</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">Upload CSV File</label>
+                <input type="file" name="file" accept=".csv" class="block w-full text-sm text-gray-500
+                              file:mr-4 file:py-2 file:px-4
+                              file:rounded-full file:border-0
+                              file:text-sm file:font-semibold
+                              file:bg-blue-50 file:text-blue-700
+                              hover:file:bg-blue-100">
+            </div>
+
+            <button type="submit" class="w-full py-2 px-4 rounded-md transition duration-200" :class="{
+                        'bg-blue-600 hover:bg-blue-700 text-white': state === 'idle',
+                        'bg-blue-600 cursor-wait text-white': state === 'processing',
+                        'bg-green-600 text-white': state === 'processed'
+                    }" :disabled="state === 'processing'">
+                <span x-show="state === 'idle'">Process File</span>
+                <span x-show="state === 'processing'">Processing...</span>
+                <span x-show="state === 'processed'">Processed!</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- Results Section -->
+    <div id="results" class="space-y-6">
+        <!-- Results will be loaded here -->
+    </div>
+</div>
+{% endblock %}

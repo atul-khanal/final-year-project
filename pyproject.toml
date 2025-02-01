@@ -1,0 +1,18 @@
+[project]
+name = "atul-ids"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dask>=2025.1.0",
+    "flask>=3.1.0",
+    "joblib>=1.4.2",
+    "matplotlib>=3.10.0",
+    "numpy>=2.2.2",
+    "pandas>=2.2.3",
+    "pyarrow>=19.0.0",
+    "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
+    "werkzeug>=3.1.3",
+]

@@ -1,0 +1,6 @@
+myenv/
+*.csv
+*.pkl
+*.png
+*.log
+*.log.*
